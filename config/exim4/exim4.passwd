@@ -1,0 +1,4 @@
+# Generated with command /usr/share/doc/exim4-base/examples/exim-adduser
+
+tutu:$1$AlO7$kwlCzfh0/eoGXZWEyZ0RV.:tutu
+toto:$1$FG3L$AiY2ehTYYymp1HQdGowLQ.:toto
