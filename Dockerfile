@@ -50,7 +50,6 @@ RUN echo "tutu:tutu" | chpasswd
 RUN chown -R tutu:tutu /home/tutu
 
 ### config exim4 (smtp server)
-RUN echo 'pouet.com' > /etc/mailname
 COPY ./config/exim4/update-exim4.conf.conf /etc/exim4/
 RUN update-exim4.conf
 
@@ -69,7 +68,7 @@ RUN update-exim4.conf
 ### config dovecot (pop3 server)
 COPY ./config/dovecot/dovecot.conf /etc/dovecot/dovecot.conf
 
-### initialize empty mailboxes for toto & tutu
+### initialize empty mbox for toto & tutu
 RUN touch /var/mail/toto && chown toto:mail /var/mail/toto
 RUN touch /var/mail/tutu && chown tutu:mail /var/mail/tutu
 
