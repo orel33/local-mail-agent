@@ -59,7 +59,7 @@ Let's start by launching the Docker image.
 $ docker run -it --hostname=pouet.com orel33/local-mail-agent
 ```
 
-You are logged in as *root* in the container. Check with *netstat* that the
+You are logged in as *root* in Docker the container. Check with *netstat* that the
 servers have started successfully...
 
 ```bash
@@ -72,8 +72,9 @@ tcp   0.0.0.0:995       0.0.0.0:*          LISTEN    dovecot
 root@pouet$
 ```
 
-Now, let's send an email from `tutu@pouet.com` to `toto@pouet.com` by using the
-`mail` command.
+Great! Now, let's send an email from `tutu@pouet.com` to `toto@pouet.com` by
+using the `mail` command. But first, you need to log in as the 'tutu' user
+within the container.
 
 ```bash
 root@pouet$ su tutu
@@ -87,13 +88,15 @@ toto@pouet$ mail
 toto@pouet$
 ```
 
-Furthermore, it is possible to make both SMTP & POP3 servers available outside
-of the Docker world, listening on alternative ports. This is particularly
-convenient to develop and test locally a *mail user agent* (MUA) on localhost,
-that implements both a SMTP client and a POP3 client.
+Now let's try using our *mail agent* outside the Docker container.
 
 ```bash
 $ docker run -it --hostname=pouet.com -p 1110:110 -p 1995:995 -p 1025:25 -p 1465:465 orel33/local-mail-agent
 ```
+
+Indeed, it is possible to make both SMTP & POP3 servers available outside of the
+Docker world, listening on alternative ports. This is particularly convenient to
+develop and test a *mail user agent* (MUA), that implements both SMTP & POP3
+clients.
 
 ---
