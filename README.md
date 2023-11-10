@@ -105,10 +105,10 @@ clients for both SMTP & POP3 servers.
 
 Let's assume that the Docker container is already running on the `ssss` machine
 and that we are connected to the `cccc` machine, which may be `ssss` itself.
-Now, let's send an email from `toto@pouet.com` to `tutu@pouet.com` from this
-machine. For this demo, we just use a Telnet session (by hand) that connects to
-the SMTP server (`ssss:1025`). In this case, we use an unsecured connection
-without any authentication. 
+Now, let's send an email from `toto@pouet.com` to `tutu@pouet.com`. For this
+demo, we just use a Telnet session (by hand) that connects to the SMTP server
+(`ssss:1025`). In this case, we use an unsecured connection without any
+authentication.
 
 Here is the log of this Telnet session. The symbols `>` and `<` are used to
 distinguish between lines of text sent or received over the network.
@@ -139,7 +139,7 @@ Connection closed by foreign host.
 
 Let's now retrieve this email by using a Telnet session that connects to the
 POP3 server (`ssss:1110`). In this case, we still use an unsecured connection,
-but authentication of the connection is nevertheless required.
+but with authentication as shown on this log.
 
 ```
 cccc$ telnet ssss 1110
