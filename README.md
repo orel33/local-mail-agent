@@ -104,13 +104,14 @@ clients for both SMTP & POP3 servers.
 ### Telnet Session
 
 Let's assume that the Docker container is already running on the `ssss` machine
-and that we are connected to the `cccc` machine, which may possibly be
-`localhost`. Now, let's send an email from `toto@pouet.com` to `tutu@pouet.com`
-from this machine. For this demo, we just use a Telnet session (by hand) that
-connects to the SMTP server (`ssss:1025`). In this case, we use an unsecured
-connection without any authentication. Here's the session log. The symbols `>`
-and `<` are used to distinguish between lines of text sent or received across
-the network.
+and that we are connected to the `cccc` machine, which may be `ssss` itself.
+Now, let's send an email from `toto@pouet.com` to `tutu@pouet.com` from this
+machine. For this demo, we just use a Telnet session (by hand) that connects to
+the SMTP server (`ssss:1025`). In this case, we use an unsecured connection
+without any authentication. 
+
+Here is the log of this Telnet session. The symbols `>` and `<` are used to
+distinguish between lines of text sent or received over the network.
 
 ```
 cccc$ telnet ssss 1025
