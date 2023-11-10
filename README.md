@@ -1,10 +1,15 @@
 # Local Mail Agent
 
-This repository contains [Dockerfile](Dockerfile) and [assets](config/) for a
-Docker image, that runs a **local-only mail agent** on Linux (Debian 12). This
-image is published to the [Docker
-Hub](https://hub.docker.com/repository/docker/orel33/local-mail-agent). Besides,
-this repository contains scripts to build & run this Docker image.
+This repository contains [Dockerfile](Dockerfile) and [configuration
+files](config/) for a Docker image, that runs a **local-only mail agent** on
+Linux (Debian 12). This image is published to the [Docker
+Hub](https://hub.docker.com/repository/docker/orel33/local-mail-agent).
+
+```bash
+$ docker run -it --hostname=pouet.com orel33/local-mail-agent
+```
+
+Besides, this repository contains scripts to build & run this image.
 
 ## In few words
 
