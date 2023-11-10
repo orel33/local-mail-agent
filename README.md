@@ -5,6 +5,8 @@ files](config/) for a Docker image, that runs a **local-only mail agent** on
 Linux (Debian 12). This image is published to the [Docker
 Hub](https://hub.docker.com/repository/docker/orel33/local-mail-agent).
 
+To run this image, simply use:
+
 ```bash
 $ docker run -it --hostname=pouet.com orel33/local-mail-agent
 ```
