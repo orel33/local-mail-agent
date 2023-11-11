@@ -61,8 +61,8 @@ Let's start by launching the Docker image.
 $ docker run -it --hostname=pouet.com orel33/local-mail-agent
 ```
 
-You are logged in as *root* in Docker the container. Check with *netstat* that the
-servers have started successfully...
+You are logged in as *root* in the Docker container. Check with *netstat* that
+the servers have started successfully...
 
 ```bash
 root@pouet$ netstat -tlpn
