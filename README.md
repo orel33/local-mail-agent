@@ -51,7 +51,7 @@ flowchart LR;
         SMTPC("Client SMTP");
         POP3C("Client POP3");
     end
-    subgraph "Local Mail Agent (Docker)"
+    subgraph "Local Mail Agent"
         SMTPS("SMTP Server");
         POP3S("POP3 Server");
         MX[("Mailboxes\n /var/mail/")];
