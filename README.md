@@ -42,10 +42,11 @@ can receive this email (via the POP3 protocol).
 
 ```mermaid
 graph TD;
-    A-->B;
-    A-->C;
-    B-->D;
-    C-->D;
+    MUA1(User 'toto'
+    toto@pouet.com);
+    MUA2(User 'tutu'
+    tutu@pouet.com);
+    MUA1 & MUA2 --> LMA
 ```
 
 
