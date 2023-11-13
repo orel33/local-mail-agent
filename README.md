@@ -37,13 +37,15 @@ configuration, the `pouet.com` domain is fictitious, and can only be used
 locally on the Docker machine.
 
 In short, the user `toto` (`toto@pouet.com`) can send an email to the user
-`tutu` ()`tutu@pouet.com`) (via the SMTP protocol). And symmetrically, `tutu`
+`tutu` (`tutu@pouet.com`) (via the SMTP protocol). And symmetrically, `tutu`
 can receive this email (via the POP3 protocol).
 
 ```mermaid
 flowchart TD;
-    MUA1("User toto\n toto@pouet.com");
-    MUA2("User tutu\n tutu@pouet.com");
+    subgraph MUA
+        MUA1("User toto\n toto@pouet.com");
+        MUA2("User tutu\n tutu@pouet.com");
+    end
     LMA("Local Mail Agent\n SMTP & POP3 Servers")
     MX[("Mailboxes\n /var/mail/")];
     MUA1 -- SMTP --> LMA;
