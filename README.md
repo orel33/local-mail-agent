@@ -41,13 +41,13 @@ In short, the user `toto` (`toto@pouet.com`) can send an email to the user
 can receive this email (via the POP3 protocol).
 
 ```mermaid
-flowchart LR
+flowchart TB
     %% id
     MUA1(User 'toto'
     toto@pouet.com)
     MUA2(User 'tutu'
     tutu@pouet.com)
-    MX[(Mailboxes
+    MX[(Local Mailboxes
     /var/mail/)]
     SSMTP(SMTP server)
     SPOP3(POP3 server)
