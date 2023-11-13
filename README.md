@@ -42,7 +42,8 @@ can receive this email (via the POP3 protocol).
 
 ```mermaid
 graph TD;
-    MUA1 & MUA2 --> LMA
+    MUA1("coucou");
+    MUA1 & MUA2 --> LMA;
 ```
 
 
