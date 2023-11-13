@@ -41,27 +41,27 @@ In short, the user `toto` (`toto@pouet.com`) can send an email to the user
 can receive this email (via the POP3 protocol).
 
 ```mermaid
-graph TB
+graph TB;
     %% id
     MUA1(User 'toto'
-    toto@pouet.com)
+    toto@pouet.com);
     MUA2(User 'tutu'
-    tutu@pouet.com)
+    tutu@pouet.com);
     MX[(Local Mailboxes
-    /var/mail/)]
-    SSMTP(SMTP server)
-    SPOP3(POP3 server)
+    /var/mail/)];
+    SSMTP(SMTP server);
+    SPOP3(POP3 server);
     %% subgraphs
-    subgraph "Local Mail Agent"
-        SSMTP
-        SPOP3
-        MX
+    subgraph "Local Mail Agent";
+        SSMTP;
+        SPOP3;
+        MX;
     end
     %% links
-    MUA1 -- SMTP --> SSMTP
-    MUA2 -- POP3 --> SPOP3
-    SSMTP <--> MX
-    SPOP3 <--> MX
+    MUA1 -- SMTP --> SSMTP;
+    MUA2 -- POP3 --> SPOP3;
+    SSMTP <--> MX;
+    SPOP3 <--> MX;
 ```
 
 For each user, both servers are linked locally to the same mailbox, which is
