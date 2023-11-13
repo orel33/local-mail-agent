@@ -46,11 +46,14 @@ flowchart TD;
         MUA1("User toto\n toto@pouet.com");
         MUA2("User tutu\n tutu@pouet.com");
     end
-    LMA("Local Mail Agent\n SMTP & POP3 Servers")
-    MX[("Mailboxes\n /var/mail/")];
-    MUA1 -- SMTP --> LMA;
-    MUA2 -- POP3 --> LMA;
-    LMA <--> MX;
+    subgraph LMA
+        SSMTP("SMTP Server");
+        SPOP3("POP3 Server");
+        MX[("Mailboxes\n /var/mail/")];
+    end
+    MUA1 -- SMTP --> SSMTP;
+    MUA2 -- POP3 --> SPOP3;
+    SSMTP & SPOP3 <--> MX;
 ```
 
 
