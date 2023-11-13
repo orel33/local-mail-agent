@@ -42,8 +42,25 @@ POP3 protocol).
 
 ```mermaid
 flowchart LR
-    MUA --> MTA --> MDA
+    MUA1(User 'toto'
+    toto@pouet.com)
+    MUA2(User 'tutu'
+    tutu@pouet.com)
+    LMA(Local Mail Agent
+    SMTP & POP3 servers)
+    MUA1 -- SMTP --> LMA
+    MUA2 -- POP3 --> LMA
+    LMA <--> disk[(Mailboxes
+    /var/mail/)]
+
 ```
+
+**TODO**: Explain the figure. MUA (Mail User Agent), MTA (Mail Transfer Agent),
+MDA(Mail Delivery Agent). The MUA is the email client used by the end-user, the
+MTA  is responsible for the transfer of emails between servers, and the MDA
+handles the final delivery of emails to the recipient's mailbox. These
+components work together to facilitate the sending, routing, and receiving of
+emails in an email system.
 
 For each user, both servers are linked locally to the same mailbox, which is
 stored in the `/var/mail/` directory in *mbox* format. This mailbox can be
@@ -91,19 +108,43 @@ toto@pouet$ mail
 "/var/mail/toto": 1 message 1 new
 >N   1 tutu@pouet.com     Fri Nov 10 11:47  16/462   test
 ? q
-toto@pouet$
+toto@pouet$ exit
+root@pouet$
 ```
+
+Simply type `exit` as `root` to exit the Docker container.
+
+### Outside Docker
 
 Now let's try using our *mail agent* outside the Docker container.
 
 ```bash
-$ docker run -it --hostname=pouet.com -p 1110:110 -p 1995:995 -p 1025:25 -p 1465:465 orel33/local-mail-agent
+$ docker run -it --hostname=pouet.com -p 10025:25 -p 10465:465 -p 10110:110 -p 10995:995 orel33/local-mail-agent
+root@pouet:/home/docker#
 ```
 
 Indeed, it is possible to make both the SMTP & POP3 servers available outside of
-the Docker world, listening on alternative ports. This is particularly
-convenient to develop and test a *mail user agent* (MUA), that implements
-clients for both SMTP & POP3 servers.
+the Docker world, listening on alternative ports (10110, 10995, 10025, 10465).
+To do this, we use the option `-p x:y`, which makes a docker service listening
+on port `y`, accessible on the host machine via the port `x`.
+
+These options expose and map ports between the host machine and the container.
+In this case:
+
+* Port 10025 on the host is mapped to port 25 in the container (SMTP).
+* Port 10465 on the host is mapped to port 465 in the container (SMTP over TLS)
+* Port 10110 on the host is mapped to port 110 in the container (POP3).
+* Port 10995 on the host is mapped to port 995 in the container (POP3 over TLS).
+
+Thus, it is possible to connect the Docker SMTP server (port 25) outside from
+the container by using Telnet, as follows:
+
+```
+$ telnet localhost 10025
+```
+
+This is particularly convenient to develop and test a *mail user agent* (MUA),
+that implements clients for both SMTP & POP3 servers.
 
 ### Telnet Session
 
@@ -111,14 +152,14 @@ Let's assume that the Docker container is already running on the `ssss` machine
 and that we are connected to the `cccc` machine, which may be `ssss` itself.
 Now, let's send an email from `toto@pouet.com` to `tutu@pouet.com`. For this
 demo, we just use a Telnet session (by hand) that connects to the SMTP server
-(`ssss:1025`). In this case, we use an unsecured connection without any
+(`ssss:10025`). In this case, we use an unsecure connection without any
 authentication.
 
 Here is the log of this Telnet session. The symbols `>` and `<` are used to
 distinguish between lines of text sent or received over the network.
 
 ```
-cccc$ telnet ssss 1025
+cccc$ telnet ssss 10025
 Connected to ssss.
 Escape character is '^]'.
 < 220 pouet.com ESMTP Exim 4
@@ -142,11 +183,11 @@ Connection closed by foreign host.
 ```
 
 Let's now retrieve this email by using a Telnet session that connects to the
-POP3 server (`ssss:1110`). In this case, we still use an unsecured connection,
+POP3 server (`ssss:10110`). In this case, we still use an unsecured connection,
 but with authentication as shown on this log.
 
 ```
-cccc$ telnet ssss 1110
+cccc$ telnet ssss 10110
 Connected to ssss.
 < +OK Welcome on Dovecot.
 > USER tutu
