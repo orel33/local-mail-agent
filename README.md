@@ -41,13 +41,14 @@ In short, the user `toto` (`toto@pouet.com`) can send an email to the user
 can receive this email (via the POP3 protocol).
 
 ```mermaid
-graph TD;
+flowchart TD;
     MUA1("User toto\n toto@pouet.com");
     MUA2("User tutu\n tutu@pouet.com");
     LMA("Local Mail Agent\n SMTP & POP3 Servers")
-    MX[("Mailboxes\n /var/mail/")]
-    MUA1 & MUA2 --> LMA;
-    LMA <--> MX
+    MX[("Mailboxes\n /var/mail/")];
+    MUA1 -- SMTP --> LMA;
+    MUA2 -- POP3 --> LMA;
+    LMA <--> MX;
 ```
 
 
