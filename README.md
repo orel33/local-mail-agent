@@ -44,7 +44,10 @@ can receive this email (via the POP3 protocol).
 graph TD;
     MUA1("User toto\n toto@pouet.com");
     MUA2("User tutu\n tutu@pouet.com");
+    LMA("Local Mail Agent\n SMTP & POP3 Servers")
+    MX[("Mailboxes\n /var/mail/")]
     MUA1 & MUA2 --> LMA;
+    LMA <--> MX
 ```
 
 
