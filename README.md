@@ -40,22 +40,26 @@ In short, the user `toto` (`toto@pouet.com`) can send an email to the user
 `tutu` (`tutu@pouet.com`) (via the SMTP protocol). And symmetrically, `tutu`
 can receive this email (via the POP3 protocol).
 
+As shown in the figure below, the *Mail User Agent* (MUA)) is the program that
+acts as a SMTP & POP3 client for end-users, allowing them to send and receive
+email by connecting to our *Local Mail Agent* (LMA), which acts as the central
+server for all users of the `pouet.com` domain.
+
 ```mermaid
-flowchart TD;
-    subgraph MUA
-        MUA1("User toto\n toto@pouet.com");
-        MUA2("User tutu\n tutu@pouet.com");
+flowchart LR;
+    subgraph "Mail User Agent"
+        SMTPC("Client SMTP");
+        POP3C("Client POP3");
     end
-    subgraph LMA
-        SSMTP("SMTP Server");
-        SPOP3("POP3 Server");
+    subgraph "Local Mail Agent"
+        SMTPS("SMTP Server");
+        POP3S("POP3 Server");
         MX[("Mailboxes\n /var/mail/")];
     end
-    MUA1 -- SMTP --> SSMTP;
-    MUA2 -- POP3 --> SPOP3;
-    SSMTP & SPOP3 <--> MX;
+    SMTPC-- SMTP --> SMTPS;
+    POP3C-- POP3 --> POP3S;
+    SMTPS & POP3S <--> MX;
 ```
-
 
 For each user, both servers are linked locally to the same mailbox, which is
 stored in the `/var/mail/` directory in *mbox* format. This mailbox can be
