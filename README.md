@@ -2,7 +2,7 @@
 
 This repository contains [Dockerfile](Dockerfile) and [configuration
 files](config/) for a Docker image, that runs a **local-only mail agent** on
-Linux (Debian 12). This image is published to the [Docker
+Linux (Debian 12). This image is published in the [Docker
 Hub](https://hub.docker.com/repository/docker/orel33/local-mail-agent). Besides,
 this repository contains scripts to build & run this image.
 
@@ -14,8 +14,7 @@ $ docker run -it --hostname=pouet.com orel33/local-mail-agent
 
 In our case, the `--hostname` option is really important because the chosen
  *hostname* will also be used as the mail domain name (or *mailname*). In the
-following, we will assume that the chosen *hostname* is `pouet.com`, but this
-can be changed freely.
+following, we will assume that the chosen *hostname* is `pouet.com`.
 
 ## In few words
 
@@ -40,6 +39,11 @@ locally on the Docker machine.
 In short, `toto@pouet.com` can send an email to `tutu@pouet.com` (via the SMTP
 protocol). And symmetrically, `tutu@pouet.com` can receive this email (via the
 POP3 protocol).
+
+```mermaid
+flowchart LR
+    MUA --> MTA --> MDA
+```
 
 For each user, both servers are linked locally to the same mailbox, which is
 stored in the `/var/mail/` directory in *mbox* format. This mailbox can be
