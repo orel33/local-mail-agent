@@ -41,7 +41,7 @@ In short, the user `toto` (`toto@pouet.com`) can send an email to the user
 can receive this email (via the POP3 protocol).
 
 ```mermaid
-flowchart TB
+graph TB
     %% id
     MUA1(User 'toto'
     toto@pouet.com)
