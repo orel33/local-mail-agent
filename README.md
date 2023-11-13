@@ -36,31 +36,33 @@ For the purposes of the demo, the Docker image has two user accounts `toto`
 configuration, the `pouet.com` domain is fictitious, and can only be used
 locally on the Docker machine.
 
-In short, `toto@pouet.com` can send an email to `tutu@pouet.com` (via the SMTP
-protocol). And symmetrically, `tutu@pouet.com` can receive this email (via the
-POP3 protocol).
+In short, the user `toto` (`toto@pouet.com`) can send an email to the user
+`tutu` ()`tutu@pouet.com`) (via the SMTP protocol). And symmetrically, `tutu`
+can receive this email (via the POP3 protocol).
 
 ```mermaid
 flowchart LR
+    %% id
     MUA1(User 'toto'
     toto@pouet.com)
     MUA2(User 'tutu'
     tutu@pouet.com)
-    LMA(Local Mail Agent
-    SMTP & POP3 servers)
-    MUA1 -- SMTP --> LMA
-    MUA2 -- POP3 --> LMA
-    LMA <--> disk[(Mailboxes
+    MX[(Mailboxes
     /var/mail/)]
-
+    SSMTP(SMTP server)
+    SPOP3(POP3 server)
+    %% subgraphs
+    subgraph "Local Mail Agent"
+        SSMTP
+        SPOP3
+        MX
+    end
+    %% links
+    MUA1 -- SMTP --> SSMTP
+    MUA2 -- POP3 --> SPOP3
+    SSMTP <--> MX
+    SPOP3 <--> MX
 ```
-
-**TODO**: Explain the figure. MUA (Mail User Agent), MTA (Mail Transfer Agent),
-MDA(Mail Delivery Agent). The MUA is the email client used by the end-user, the
-MTA  is responsible for the transfer of emails between servers, and the MDA
-handles the final delivery of emails to the recipient's mailbox. These
-components work together to facilitate the sending, routing, and receiving of
-emails in an email system.
 
 For each user, both servers are linked locally to the same mailbox, which is
 stored in the `/var/mail/` directory in *mbox* format. This mailbox can be
