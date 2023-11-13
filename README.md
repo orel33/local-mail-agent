@@ -40,7 +40,7 @@ In short, the user `toto` (`toto@pouet.com`) can send an email to the user
 `tutu` (`tutu@pouet.com`) (via the SMTP protocol). And symmetrically, `tutu`
 can receive this email (via the POP3 protocol).
 
-As shown in the figure below, the *Mail User Agent* (MUA)) is the program that
+As shown in the figure below, the *Mail User Agent* (MUA) is the program that
 acts as a SMTP & POP3 client for end-users, allowing them to send and receive
 email by connecting to our *Local Mail Agent* (LMA), which acts as the central
 server for all users of the `pouet.com` domain.
@@ -51,7 +51,7 @@ flowchart LR;
         SMTPC("Client SMTP");
         POP3C("Client POP3");
     end
-    subgraph "Local Mail Agent"
+    subgraph "Local Mail Agent (Docker)"
         SMTPS("SMTP Server");
         POP3S("POP3 Server");
         MX[("Mailboxes\n /var/mail/")];
