@@ -37,8 +37,8 @@ configuration, the `pouet.com` domain is fictitious, and can only be used
 locally on the Docker machine.
 
 In short, the user `toto` (`toto@pouet.com`) can send an email to the user
-`tutu` (`tutu@pouet.com`) (via the SMTP protocol). And symmetrically, `tutu`
-can receive this email (via the POP3 protocol).
+`tutu` (`tutu@pouet.com`) via the SMTP protocol. And symmetrically, `tutu` can
+receive this email via the POP3 protocol.
 
 As shown in the figure below, the *Mail User Agent* (MUA) is the program that
 acts as a SMTP & POP3 client for end-users, allowing them to send and receive
@@ -123,9 +123,9 @@ root@pouet:/home/docker#
 ```
 
 Indeed, it is possible to make both the SMTP & POP3 servers available outside of
-the Docker world, listening on alternative ports (10110, 10995, 10025, 10465).
-To do this, we use the option `-p x:y`, which makes a docker service listening
-on port `y`, accessible on the host machine via the port `x`.
+the Docker world, listening on alternative ports. To do this, we use the option
+`-p x:y`, which makes a docker service listening on port `y`, accessible on the
+host machine via the port `x`.
 
 These options expose and map ports between the host machine and the container.
 In this case:
@@ -217,3 +217,4 @@ Connection closed by foreign host.
 *to do*
 
 ---
+<aurelien.esnard@u-bordeaux.fr>
