@@ -138,7 +138,7 @@ In this case:
 Thus, it is possible to connect the Docker SMTP server (port 25) outside from
 the container by using Telnet, as follows:
 
-```
+```bash
 $ telnet localhost 10025
 ```
 
