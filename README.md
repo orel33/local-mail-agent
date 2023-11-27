@@ -16,6 +16,9 @@ In our case, the `--hostname` option is really important because the chosen
  *hostname* will also be used as the mail domain name (or *mailname*). In the
 following, we will assume that the chosen *hostname* is `pouet.com`.
 
+Note that our mail agent is said to be *local* because sending mail to remote
+domains is not supported.
+
 ## In few words
 
 More precisely, this Dockerized mail agent consists of two servers:
@@ -66,9 +69,7 @@ stored in the `/var/mail/` directory in *mbox* format. This mailbox can be
 accessed directly, by logging into the user account on the Docker machine, and
 using a command-line mail client, such as `mutt` or `mail`.
 
-## Demo
-
-### Inside Docker
+## Launching Docker
 
 The advantage of this Docker image is that it allows you to launch our *local
 mail agent* in a container without root privileges, or having its own domain
@@ -113,7 +114,12 @@ root@pouet$
 
 Simply type `exit` as `root` to exit the Docker container.
 
-### Outside Docker
+You can find server logs here:
+
+* `/var/log/dovecot.log`
+* `/var/log/exim4/mainlog`
+
+## Test Outside Docker
 
 Now let's try using our *mail agent* outside the Docker container.
 
@@ -145,7 +151,7 @@ $ telnet localhost 10025
 This is particularly convenient to develop and test a *mail user agent* (MUA),
 that implements clients for both SMTP & POP3 servers.
 
-### Telnet Session
+## Telnet Session
 
 Let's assume that the Docker container is already running on the `ssss` machine
 and that we are connected to the `cccc` machine, which may be `ssss` itself.
@@ -212,9 +218,31 @@ Connected to ssss.
 Connection closed by foreign host.
 ```
 
-### TLS Session
+## TLS Session
 
-*to do*
+Basically, you can reproduce the *Telnet* session described just before by using
+a secure connection over SSL/TLS with the `openssl` command, as follows.
+
+For SMTP over TLS (port 465):
+
+```
+$ openssl s_client -crlf -connect localhost:465
+220 pouet.com ESMTP Exim 40
+```
+
+For POP3 over TLS (port 995):
+
+```
+$ openssl s_client -crlf -connect localhost:995
++OK Welcome on Dovecot.
+```
+
+For both SMTP and POP3 servers, we use in this demo a self-signed certifcate
+named *snakeoil* and available on Debian distribution:
+`/etc/ssl/certs/ssl-cert-snakeoil.pem`. Obviously, a legagy mail user agent will
+not trust it. So, in order to use our local mail agent, it may require to
+disable the certificate verification in your client.
+
 
 ---
 <aurelien.esnard@u-bordeaux.fr>
