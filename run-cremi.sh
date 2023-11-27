@@ -1,14 +1,6 @@
 #!/bin/bash
 
-# alias podman="podman --root=$TMPDIR/containers --storage-driver=overlay"
-# alias docker=podman
-
-# alias podman-compose="podman-compose --podman-args="--root=$TMPDIR/containers --storage-driver=overlay"
-# alias docker-compose="podman-compose"
-
-# [ -z "$TMPDIR" ] && TMPDIR=/tmp/$USER
-# [ -z "$TMPDIR" ] && TMPDIR=/local/$USER 
-# [ -z "$USER" ] && USER=$(whoami)
+set -x
 
 OPT="--rm -it --hostname=pouet.com"
 STORAGE="--storage-driver=overlay --root=$TMPDIR/containers"
