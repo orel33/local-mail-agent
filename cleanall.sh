@@ -2,21 +2,16 @@
 
 set -x
 
+STORAGE="--storage-driver=overlay --root=$TMPDIR/containers"
+
 ### list all containers
-docker container ls --all
+podman $STORAGE container ls --all
 
 ### kill all containers
-docker kill $(docker ps -q)
-
-### remove all stoped containers
-# docker container prune --force
-
-### clean images
-# docker images --all
-# docker rmi $(docker images --all -q) --force
+podman $STORAGE kill $(podman $STORAGE ps -q)
 
 ### systeme prune all (to remove cache)
-docker system prune -a -f
-docker system df -v
+podman $STORAGE system prune -a -f
+podman $STORAGE system df -v
 
 echo "Done."
