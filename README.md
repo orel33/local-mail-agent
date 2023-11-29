@@ -223,17 +223,20 @@ Connection closed by foreign host.
 Basically, you can reproduce the *Telnet* session described just before by using
 a secure connection over SSL/TLS with the `openssl` command, as follows.
 
-For SMTP over TLS (port 465):
+* For SMTP over TLS (port 465):
 
 ```
-$ openssl s_client -crlf -connect localhost:465
+$ openssl s_client -quiet -crlf -connect localhost:465
 220 pouet.com ESMTP Exim 40
 ```
 
-For POP3 over TLS (port 995):
+The option `-quiet` is a workaround, which suppresses the interactive
+interpretation of `R` and `Q` characters by `openssl`.
+
+* For POP3 over TLS (port 995):
 
 ```
-$ openssl s_client -crlf -connect localhost:995
+$ openssl s_client -quiet -crlf -connect localhost:995
 +OK Welcome on Dovecot.
 ```
 
@@ -242,7 +245,6 @@ named *snakeoil* and available on Debian distribution:
 `/etc/ssl/certs/ssl-cert-snakeoil.pem`. Obviously, a legagy mail user agent will
 not trust it. So, in order to use our local mail agent, it may require to
 disable the certificate verification in your client.
-
 
 ---
 <aurelien.esnard@u-bordeaux.fr>
