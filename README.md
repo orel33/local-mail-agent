@@ -168,8 +168,8 @@ cccc$ telnet ssss 10025
 Connected to ssss.
 Escape character is '^]'.
 < 220 pouet.com ESMTP Exim 4
-> EHLO cccc
-< 250-pouet.com Hello cccc
+> EHLO pouet.com
+< 250-pouet.com Hello pouet.com
 > MAIL FROM: <toto@pouet.com>
 < 250 OK
 > RCPT TO: <tutu@pouet.com>
