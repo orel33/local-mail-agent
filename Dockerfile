@@ -56,6 +56,7 @@ RUN update-exim4.conf
 ### enable TLS & AUTH in exim4
 COPY ./config/exim4/03_exim4-config_tlsoptions /etc/exim4/conf.d/main/
 COPY ./config/exim4/30_exim4-config_examples /etc/exim4/conf.d/auth/
+COPY ./config/exim4/30_exim4-config_mail_spool /etc/exim4/conf.d/transport/
 RUN cp /etc/ssl/private/ssl-cert-snakeoil.key /etc/exim4/exim.key
 RUN cp /etc/ssl/certs/ssl-cert-snakeoil.pem /etc/exim4/exim.crt
 RUN chown root:Debian-exim /etc/exim4/exim.key /etc/exim4/exim.crt
@@ -69,8 +70,9 @@ RUN update-exim4.conf
 COPY ./config/dovecot/dovecot.conf /etc/dovecot/dovecot.conf
 
 ### initialize empty mbox for toto & tutu
-RUN touch /var/mail/toto && chown toto:mail /var/mail/toto
-RUN touch /var/mail/tutu && chown tutu:mail /var/mail/tutu
+RUN mkdir /mail && chgrp mail /mail && chmod g+rwxs /mail
+RUN touch /mail/toto && chown toto:mail /mail/toto
+RUN touch /mail/tutu && chown tutu:mail /mail/tutu
 
 ### start services
 COPY ./config/app.sh /
