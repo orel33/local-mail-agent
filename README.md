@@ -100,15 +100,17 @@ using the `mail` command. But first, you need to log in as the 'tutu' user
 within the container.
 
 ```bash
-root@pouet$ su tutu
-tutu@pouet$ echo "Testing message." | mail -s "test" toto@pouet.com
-tutu@pouet$ exit
+# send mail from toto to tutu
 root@pouet$ su toto
-toto@pouet$ mail
-"/var/mail/toto": 1 message 1 new
->N   1 tutu@pouet.com     Fri Nov 10 11:47  16/462   test
-? q
+toto@pouet$ echo "Testing message." | mail -s "test" tutu@pouet.com
 toto@pouet$ exit
+# recv mail as tutu
+root@pouet$ su tutu
+tutu@pouet$ mail
+"/var/mail/tutu": 1 message 1 new
+>N   1 toto@pouet.com     Fri Nov 10 11:47  16/462   test
+? q
+tutu@pouet$ exit
 root@pouet$
 ```
 
